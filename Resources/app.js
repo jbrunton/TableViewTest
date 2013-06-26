@@ -91,12 +91,25 @@ function rowClickHandler(e) {
     if (e.row.className === "loadMoreVehicles") {
         button.enabled = false;
         setTimeout(function() {
-            alert("load more");
             button.enabled = true;
+            data[data.length - 1].add(makeRow());
+            data[data.length - 1].add(makeRow());
+            data[data.length - 1].add(makeRow());
+            section = Ti.UI.createTableViewSection({headerView: locationHeader()});
+            section.add(makeRow());
+            section.add(makeRow());
+            section.add(makeRow());
+            section.add(makeRow());
+            section.add(makeRow());
+            
+            button = makeButton();
+            buttonRow = makeButtonRow();
+            buttonRow.add(button);
+            section.add(buttonRow);
+            
+            data.push(section);
+            table.setData(data);
         }, 1000);
-    }
-    else {
-        alert("something else");
     }
 }
 
