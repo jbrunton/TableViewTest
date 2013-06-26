@@ -63,9 +63,44 @@ function locationHeader() {
     return locView;
 }
 
+function makeButton() {
+            var button = Ti.UI.createButton({ fontWeight: 'bold', fontSize: 18, title: "Load more results" });
+            button.height= 40;
+            button.left=10;
+            button.right=10;
+            return button;
+}
+
+function makeButtonRow() {
+    
+    var e = {
+                        color: "#000",
+                        className: "loadMoreVehicles",
+                        height: 50,
+                        width: Ti.UI.FILL
+    };
+    var row = Ti.UI.createTableViewRow(e);
+    return row;
+}
+
 var table = Titanium.UI.createTableView({
     
 });
+
+function rowClickHandler(e) {
+    if (e.row.className === "loadMoreVehicles") {
+        button.enabled = false;
+        setTimeout(function() {
+            alert("load more");
+            button.enabled = true;
+        }, 1000);
+    }
+    else {
+        alert("something else");
+    }
+}
+
+table.addEventListener("click", rowClickHandler);
 
 var data = [];
 
@@ -103,6 +138,12 @@ section.add(makeRow());
 section.add(makeRow());
 section.add(makeRow());
 section.add(makeRow());
+
+var button = makeButton();
+var buttonRow = makeButtonRow();
+buttonRow.add(button);
+section.add(buttonRow);
+
 data.push(section);
 
 table.setData(data);
