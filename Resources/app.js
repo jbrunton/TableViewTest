@@ -182,7 +182,6 @@ var button = makeButton();
 var buttonRow = makeButtonRow();
 buttonRow.add(button);
 indicator = makeIndicator();
-indicator.left = 250;
 buttonRow.add(indicator);
 data.push(buttonRow);
 
