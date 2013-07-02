@@ -97,9 +97,6 @@ function rowClickHandler(e) {
             button.enabled = true;
             data.pop();
             table.deleteRow(e.index);
-            data[data.length - 1].add(makeRow());
-            data[data.length - 1].add(makeRow());
-            data[data.length - 1].add(makeRow());
             section = Ti.UI.createTableViewSection({headerView: locationHeader()});
             section.add(makeRow());
             section.add(makeRow());
