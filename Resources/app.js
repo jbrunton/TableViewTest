@@ -3,6 +3,7 @@ var win = Titanium.UI.createWindow({
 });
 
 var num = 0;
+var indicator;
 
 function makeRow() {
     var e = {
@@ -67,11 +68,26 @@ function locationHeader() {
 }
 
 function makeButton() {
-            var button = Ti.UI.createButton({ fontWeight: 'bold', fontSize: 18, title: "Load more results" });
+            var button = Ti.UI.createButton({
+                fontWeight: 'bold',
+                fontSize: 18,
+                title: "Load more results",
+                borderRadius: 15,
+                borderWidth: 1,
+                borderColor: '#9CC1E6',
+                backgroundColor: '#DDD',
+                backgroundImage: 'NONE'
+            });
             button.height= 40;
             button.left=10;
             button.right=10;
             return button;
+}
+
+function makeIndicator() {
+    var indicator = Titanium.UI.createActivityIndicator();
+    indicator.left = 250;
+    return indicator;
 }
 
 function makeButtonRow() {
@@ -87,10 +103,11 @@ function makeButtonRow() {
 }
 
 var table = Titanium.UI.createTableView({
-    
+    style: Ti.UI.iPhone.TableViewStyle.GROUPED
 });
 
 function rowClickHandler(e) {
+    indicator.show();
     if (e.row.className === "loadMoreVehicles") {
         button.enabled = false;
         setTimeout(function() {
@@ -109,6 +126,11 @@ function rowClickHandler(e) {
             button = makeButton();
             buttonRow = makeButtonRow();
             buttonRow.add(button);
+            
+            indicator.hide();
+            indicator = makeIndicator();
+            buttonRow.add(indicator);
+
             data.push(buttonRow);
             table.setData(data);
         }, 1000);
@@ -159,6 +181,9 @@ data.push(section);
 var button = makeButton();
 var buttonRow = makeButtonRow();
 buttonRow.add(button);
+indicator = makeIndicator();
+indicator.left = 250;
+buttonRow.add(indicator);
 data.push(buttonRow);
 
 table.setData(data);
