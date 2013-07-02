@@ -2,6 +2,8 @@ var win = Titanium.UI.createWindow({
         backgroundColor : '#fff'
 });
 
+var num = 0;
+
 function makeRow() {
     var e = {
         borderWidth: 0,
@@ -21,7 +23,7 @@ function makeRow() {
                 top: 5,
                 left: 0,
                 font: {fontWeight:"bold", fontSize: 12},
-                text: "Description goes here",
+                text: "Description for #" + num,
                 color: '#f58025',
                 height: 16
             });
@@ -39,16 +41,17 @@ function makeRow() {
     var image = Ti.UI.createImageView();
     image.width = 80;
     image.height = 43;
-    image.image = "http://lorempixel.com/80/43/cats/1/";
+    image.image = "http://lorempixel.com/80/43/cats/" + (num % 10 + 1) + "/";
     image.left = 10;
     image.top = 2;
     row.add(image);
+    num++;
     return row;
 }
 
 function locationHeader() {
     var locView = Ti.UI.createView();
-    var vldString = "location description";
+    var vldString = "location description " + num;
     var locName = Ti.UI.createLabel({
         text: vldString,
         font: {
@@ -92,6 +95,8 @@ function rowClickHandler(e) {
         button.enabled = false;
         setTimeout(function() {
             button.enabled = true;
+            data.pop();
+            table.deleteRow(e.index);
             data[data.length - 1].add(makeRow());
             data[data.length - 1].add(makeRow());
             data[data.length - 1].add(makeRow());
@@ -102,12 +107,12 @@ function rowClickHandler(e) {
             section.add(makeRow());
             section.add(makeRow());
             
+            data.push(section);
+            
             button = makeButton();
             buttonRow = makeButtonRow();
             buttonRow.add(button);
-            section.add(buttonRow);
-            
-            data.push(section);
+            data.push(buttonRow);
             table.setData(data);
         }, 1000);
     }
@@ -152,12 +157,12 @@ section.add(makeRow());
 section.add(makeRow());
 section.add(makeRow());
 
+data.push(section);
+
 var button = makeButton();
 var buttonRow = makeButtonRow();
 buttonRow.add(button);
-section.add(buttonRow);
-
-data.push(section);
+data.push(buttonRow);
 
 table.setData(data);
 win.add(table);
