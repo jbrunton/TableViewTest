@@ -112,16 +112,14 @@ function rowClickHandler(e) {
         button.enabled = false;
         setTimeout(function() {
             button.enabled = true;
-            data.pop();
             table.deleteRow(e.index);
             section = Ti.UI.createTableViewSection({headerView: locationHeader()});
-            section.add(makeRow());
-            section.add(makeRow());
-            section.add(makeRow());
-            section.add(makeRow());
-            section.add(makeRow());
-            
-            data.push(section);
+            table.appendSection(section);
+            table.appendRow(makeRow());
+            table.appendRow(makeRow());
+            table.appendRow(makeRow());
+            table.appendRow(makeRow());
+            table.appendRow(makeRow());
             
             button = makeButton();
             buttonRow = makeButtonRow();
@@ -131,8 +129,7 @@ function rowClickHandler(e) {
             indicator = makeIndicator();
             buttonRow.add(indicator);
 
-            data.push(buttonRow);
-            table.setData(data);
+            table.appendRow(buttonRow);
         }, 1000);
     }
 }
